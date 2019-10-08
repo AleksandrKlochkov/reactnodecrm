@@ -1,0 +1,34 @@
+.Button {
+    display: inline-block;
+}
+
+.Button button {
+    outline: none;
+    cursor: pointer;
+    margin: 5px;
+    padding: 10px 25px;
+    color: #282828;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}
+
+.Button button:active{
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,.3);
+}
+
+.Button button:hover {
+    filter: brightness(105%);
+}
+
+.success {
+    color: #fff !important;
+    background-color: #26a69a;
+    border-color: #c3e6cb;
+}
+
+.primary {
+    color: #fff !important;
+    background-color: #2884f6;
+    border-color: #b8daff;
+}
