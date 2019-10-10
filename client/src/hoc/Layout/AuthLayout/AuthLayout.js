@@ -21,7 +21,7 @@ class AuthLayout extends Component {
                     </Switch>
                 </div>
 
-                <Footer />
+                {/* <Footer /> */}
             </div>
         )
     }

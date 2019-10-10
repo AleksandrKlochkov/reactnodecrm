@@ -1,6 +1,6 @@
 .Input {
     width: 100%;
-    margin: 10px 0;
+    margin: 20px 0;
 }
 
 .Input label {
@@ -21,4 +21,12 @@
 .Input .error{
     padding: 0 5px;
     color: red;
+}
+
+.Input.invalid label {
+    color: red;
+}
+
+.Input.invalid input {
+    border-bottom: 1px solid red;
 }

@@ -5,10 +5,11 @@ import './Button.css'
 const Button = props => {
         const buttonType = props.type || 'button'
         const cls = [props.className]
+        cls.push('asd')
 
         return(
             <div className="Button">
-                <button className={cls.join(' ')} type={buttonType}>{props.value}</button>
+                <button className={cls.join(' ')} type={buttonType} value={props.value}>{props.children}</button>
             </div>
         )
 }
