@@ -15,9 +15,11 @@ class Login extends Component {
               value: '',
               type: 'email',
               label: 'Email',
-              errorMessage: 'Введите корректный email',
               placeholder:'Введите Email',
-              valid: false,
+              validOptions:{
+                valid: false,
+                errorMessage: 'Введите корректный Email'
+              },
               touched: false,
               validation: {
                  required: true,
@@ -28,13 +30,14 @@ class Login extends Component {
               value: '',
               type: 'password',
               label: 'Пароль',
-              errorMessage: 'Введите корректный пароль',
               placeholder:'Введите пароль',
-              valid: false,
+              validOptions:{
+                valid: false,
+                errorMessage: 'Введите корректный пароль'
+              },
               touched: false,
               validation: {
-                 required: true,
-                 minLength: 6 
+                 required: true
               }         
             }
         }
@@ -46,14 +49,14 @@ class Login extends Component {
 
         control.value = event.target.value
         control.touched = true
-        control.valid = validateControl(control.value, control.validation)
+        control.validOptions = validateControl(control.value, control.validation, formControls)
 
         formControls[controlName] = control
 
         let isFormValid = true
 
         Object.keys(formControls).forEach(name => {
-            isFormValid = formControls[name].valid && isFormValid
+            isFormValid = formControls[name].validOptions.valid && isFormValid
         })
 
         this.setState({
@@ -69,7 +72,7 @@ class Login extends Component {
             const control = formControls[name]
             control.value = formControls[name].value
             control.touched = true
-            control.valid = validateControl(control.value, control.validation)
+            control.validOptions = validateControl(control.value, control.validation, formControls)
             isFormValid = formControls[name].valid && isFormValid
         })
 
@@ -94,7 +97,6 @@ class Login extends Component {
                 formControls, isFormValid
             })
         }
-        console.log('Submit')
     }
 
     renderInputs(){
@@ -105,13 +107,13 @@ class Login extends Component {
                     key={controlName + index}
                     type={control.type}
                     value={control.value}
-                    valid={control.valid}
+                    valid={control.validOptions.valid}
                     placeholder={control.placeholder}
                     name={controlName}
                     touched={control.touched}
                     label={control.label}
                     shouldValidate={!!control.validation}
-                    errorMessage={control.errorMessage}
+                    errorMessage={control.validOptions.errorMessage}
                     onChange={event => this.onChangeHandler(event, controlName)
                 }
            />

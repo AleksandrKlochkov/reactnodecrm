@@ -3,7 +3,6 @@ import {Route, Switch, Redirect} from 'react-router-dom'
 
 import Login from '../../../pages/Login/Login'
 import Registration from '../../../pages/Registration/Registration'
-import Footer from '../../../components/Footer/Footer'
 import Navbar from '../../../components/Navbar/Navbar'
 
 class AuthLayout extends Component {

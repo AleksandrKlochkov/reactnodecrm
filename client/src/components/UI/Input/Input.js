@@ -8,7 +8,7 @@ function isInvalid({valid, touched, shouldValidate}) {
 const Input = props => {
         const inputType = props.type || 'text'
         const inputPlaceholder= props.placeholder || ''
-        const cls =['Input']
+        const cls = ['Input']
         const inputFor = props.id ? props.id : `${inputType}-${Math.random()}`
         const errorMessage = props.errorMessage || 'Введите корректные данные'
 
