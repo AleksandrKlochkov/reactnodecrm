@@ -3,22 +3,23 @@ import './Registration.css'
 import Form from '../../components/Form/Form'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
-import {validateControl, alertMessage} from '../../form/formValidation'
 import Alert from '../../components/UI/Alert/Alert'
+
+import {validateControl, alertMessage} from '../../form/formValidation'
+import {Redirect} from 'react-router-dom'
+
 
 class Registration extends Component {
 
     state = {
-         alertMessage: alertMessage('danger','Произошла непредвиденная ошибка',false),
+        alertMessage: alertMessage('danger','Произошла непредвиденная ошибка',false),
         isFormValid: false,
         formControls: {
             email: {
               value: '',
               type: 'email',
               label: 'Email',
-          //    errorMessage: 'Введите корректный Email',
               placeholder: 'Введите Email',
-           //   valid: false,
               validOptions:{
                   valid: false,
                   errorMessage: 'Введите корректный Email'
@@ -29,19 +30,21 @@ class Registration extends Component {
                  email: true   
               }         
             },
-            // name: {
-            //     value: '',
-            //     type: 'name',
-            //     label: 'Имя',
-            //     errorMessage: 'Введите корректное имя',
-            //     placeholder: 'Введите Имя',
-            //     valid: false,
-            //     touched: false,
-            //     validation: {
-            //        required: true,
-            //        minLength: 2  
-            //     }         
-            //   },
+            name: {
+                value: '',
+                type: 'name',
+                label: 'Имя',
+                placeholder: 'Введите Имя',
+                validOptions:{
+                    valid: false,
+                    errorMessage: 'Введите корректное имя'
+                  },
+                touched: false,
+                validation: {
+                   required: true,
+                   minLength: 2  
+                }         
+              },
             password: {
               value: '',
               type: 'password',
@@ -113,12 +116,7 @@ class Registration extends Component {
         })
 
         if(isFormValid){
-            Object.keys(formControls).map(key => {
-                formControls[key].value = ''
-            })
-            Object.keys(controls).map(index => {
-                controls[index].value = ''
-            })
+           
             try{
                 await fetch('/api/auth/register', {
                         method: 'POST',
@@ -139,29 +137,29 @@ class Registration extends Component {
                                 }
                             )
                         }else{
-                            console.log('DataPOST', data)
-
-                            this.setState(
-                                {
-                                    alertMessage: alertMessage('success','Вы успешно зарегистрировались!'),
-                                    formControls
-                                }
-                            )
+                            //console.log('DataPOST', data)
+                            Object.keys(controls).forEach(index => {
+                                controls[index].value = ''
+                            })
+                            this.setState({
+                                alertMessage: alertMessage('success','Вы успешно зарегистрировались!'),
+                                formControls
+                            })
+                            window.setTimeout(()=>{
+                                window.location.href='/'
+                            }, 1500)
+                            
                         }
                     })
                     .catch(e => {
-                        this.setState(
-                            {
-                                alertMessage: alertMessage('danger',e),
-                            }
-                        )
+                        this.setState({
+                            alertMessage: alertMessage('danger',e),
+                        })
                     })
             }catch(e){
-                    this.setState(
-                        {
-                            alertMessage: alertMessage('danger',e),
-                        }
-                    )
+                    this.setState({
+                        alertMessage: alertMessage('danger',e),
+                    })
             }
         }else{
             this.setState({

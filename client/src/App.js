@@ -4,13 +4,12 @@ import SiteLayout from './hoc/Layout/SiteLayout/SiteLayout'
 // import {Switch, Route, Redirect} from 'react-router-dom'
 
 class App extends Component {
- state = {
-    isAuthenticated: false
- }
+
 
  render(){
+   const isAuthenticated = localStorage.getItem('token') ? true : false
     let layout = (
-      this.state.isAuthenticated ? <SiteLayout /> : <AuthLayout /> 
+      isAuthenticated ? <SiteLayout /> : <AuthLayout /> 
     )
     return (
       layout

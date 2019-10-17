@@ -17,6 +17,7 @@ class AuthLayout extends Component {
                         </Route>
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Registration} />
+                        <Redirect to="/" />
                     </Switch>
                 </div>
 

@@ -5,7 +5,9 @@ import './Footer.css'
 const Footer = props => {
         return(
             <div className="footer">
-                <h1>Footer</h1>
+                <div className="container">
+                    <h1>Footer</h1>
+                </div>
             </div>
         )
 }

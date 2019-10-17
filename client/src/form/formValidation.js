@@ -10,7 +10,7 @@ export function validateControl(value, validation, controls) {
 
     if(validation.required) {
         isValid = value.trim() !== '' && isValid
-        errorMessage = 'Поле не должно быть пустым'
+        errorMessage = 'Обязательное поле'
         if(!isValid){
          return {valid: isValid, errorMessage}
         }
