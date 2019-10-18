@@ -1,3 +1,45 @@
 .SiteLayout{
     min-height: 100vh;
 }
+
+.SiteLayout-wrapper {
+    display: flex;
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 100%;
+}
+
+.SiteLayout-content {
+    float: left;
+    width: 100%;
+    padding: 15px 10px;
+}
+
+.SiteLayout-left-bar{
+    position: relative;
+    float: left;
+    width: 320px;
+}
+
+
+/* .SiteLayout-content{
+    background: #066;
+    margin:0 0px 0 300px;
+}
+
+.SiteLayout-left-bar{
+    position: relative;
+    float: left;
+    width: 80%;
+    height: 100%;
+    max-width: 300px;
+    margin-left:-100%;
+}  */
+
+/* .SiteLayout-right-bar{
+    background: red;
+    float: left;
+    width: 245px;
+    margin-left:-245px;
+} */

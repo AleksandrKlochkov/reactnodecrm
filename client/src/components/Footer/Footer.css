@@ -1,0 +1,14 @@
+.Footer {
+    background: #23282d;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    min-height: 50px;
+    box-sizing: border-box;
+}
+
+.Footer .copy{
+    float: left;
+    font-size: 12px;
+}

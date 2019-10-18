@@ -4,9 +4,11 @@ import './Footer.css'
 
 const Footer = props => {
         return(
-            <div className="footer">
+            <div className="Footer">
                 <div className="container">
-                    <h1>Footer</h1>
+                    <div className="copy">
+                        <p>&copy; 2019 CRM-Small</p>
+                    </div>
                 </div>
             </div>
         )
