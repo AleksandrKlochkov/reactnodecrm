@@ -1,47 +1,59 @@
 .Leftbar {
-    position: absolute;
+    /* position: absolute; */
     left: 0;
-    top:0;
-    bottom:0;
+    top: 0;
+    bottom: 0;
     width: 100%;
-    max-width: 300px;
+    height: 100%;
+    max-width: 230px;
     box-sizing: border-box;
-    background-color: #23282d;
-    /* background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898; 
-    background-blend-mode: multiply,multiply; */
-
+    background-color: #222d32;
     transform: translateX(0px);
     transition: transform .22ms ease-in;
     z-index: 90;
 }
 
-.Leftbar.close{
-    transform: translateX(-300px);
+.Leftbar-small{
+    width: 50px;
 }
-.Leftbar ul{
+
+.Leftbar.close{
+    transform: translateX(-280px);
+}
+
+.Leftbar ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 10px 0;
 }
 
 .Leftbar ul>li>a {
     text-decoration: none;
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     box-sizing: border-box;
+    border-left: 3px solid #222d32;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #23282d;
+    background-color: #222d32;
     padding: 15px 10px;
     width: 100%;
-    color: #fff;
+    color: #b8c7ce;
 }
 
-.Leftbar ul>li>a.active{
-    background-color:#2d343a;
+.Leftbar ul>li>a>i {
+    font-size: 16px;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.Leftbar ul>li>a.active {
+    background-color: #2d343a;
+    border-left: 3px solid #3c8dbc;
+    color: #fff;
 }
 
 .Leftbar ul>li>a:hover{
     background-color:#2d343a;
+    color: #fff;
 }

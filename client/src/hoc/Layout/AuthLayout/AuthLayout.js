@@ -6,10 +6,23 @@ import Registration from '../../../pages/Registration/Registration'
 import Navbar from '../../../components/Navbar/Navbar'
 
 class AuthLayout extends Component {
+    state = {
+        navLink: [
+            {
+                to: '/login',
+                title: 'Войти'
+            },
+            {
+                to: '/register',
+                title: 'Регистарция'
+            }
+        ]
+    }
+
     render(){
         return(
             <div className="wrapper">
-                <Navbar />
+                <Navbar navLink={this.state.navLink} />
                 <div className="content">
                     <Switch>
                         <Route exact path="/">
@@ -20,8 +33,6 @@ class AuthLayout extends Component {
                         <Redirect to="/" />
                     </Switch>
                 </div>
-
-                {/* <Footer /> */}
             </div>
         )
     }

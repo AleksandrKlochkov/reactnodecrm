@@ -16,10 +16,11 @@
     padding: 15px 10px;
 }
 
-.SiteLayout-left-bar{
+.SiteLayout-left-bar {
     position: relative;
     float: left;
-    width: 320px;
+    width: 80%;
+    max-width: 230px;
 }
 
 

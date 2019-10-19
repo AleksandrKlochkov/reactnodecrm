@@ -1,0 +1,23 @@
+.ToggleMenu {
+    cursor: pointer;
+    color: #fff;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-right: 15px;
+    float: left;
+}
+
+.ToggleMenu .toggle-button {
+    width: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ToggleMenu .menu-bar {
+    background: #fff;
+    height: 2px;
+    margin: 1.5px 0;
+    width: 15px;
+}
