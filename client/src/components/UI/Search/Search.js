@@ -5,7 +5,7 @@ const Search = props => {
     return(
     <form action="#">
         <div className="Search">
-            <div className="Search-box">
+            <div className="Search-box small">
                 <input type="text" name="search" className="form-control" placeholder="Поиск..."/>
                 <span className="Search-btn">
                     <button type="submit" name="search" id="search-btn" className="btn btn-flat">

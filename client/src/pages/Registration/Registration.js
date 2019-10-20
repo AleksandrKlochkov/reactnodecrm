@@ -6,7 +6,6 @@ import Button from '../../components/UI/Button/Button'
 import Alert from '../../components/UI/Alert/Alert'
 
 import {validateControl, alertMessage} from '../../form/formValidation'
-import {Redirect} from 'react-router-dom'
 
 
 class Registration extends Component {
@@ -137,7 +136,6 @@ class Registration extends Component {
                                 }
                             )
                         }else{
-                            //console.log('DataPOST', data)
                             Object.keys(controls).forEach(index => {
                                 controls[index].value = ''
                             })

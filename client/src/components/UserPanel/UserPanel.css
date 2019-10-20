@@ -1,12 +1,66 @@
 .UserPanel {
-    padding: 10px;
+  margin: 0 10px;
+}
+
+.UserPanel>div {
+    padding: 10px 10px 10px;
     box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #374850;
     width: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+.UserPanel .box-user {
+    overflow: hidden;
+}
+
+.UserPanel .toggle-btn {
+    position: absolute;
+    top: 23px;
+    right: 10px;
+    color: #fff;
+}
+
+.UserPanel ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding-top: 10px;
+    margin-top: 10px;
+    width: 100%;
+    border-top: 3px solid #3c8dbc;
+}
+
+.UserPanel ul>li>a {
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    color: #b8c7ce;
+}
+
+.UserPanel ul>li>a.active{
+    color: #fff;
+}
+
+.UserPanel ul>li>a>i{
+    margin-right: 10px;
+}
+
+.UserPanel ul>li>a:hover{
+   color: #fff;
 }
 
 .UserPanel .box-image {
     float: left;
     margin-right: 10px;
+    display: flex;
 }
 
 .UserPanel .box-image>img{
@@ -21,20 +75,20 @@
     color:#fff;
 }
 
-.UserPanel .box-info>a{
+.UserPanel .box-info>.status{
     text-decoration: none;
     font-size: 10px;
     color:#fff;
 }
 
-.UserPanel .box-info>a>i{
+.UserPanel .box-info>.status>i{
     margin-right: 5px;
 }
 
-.UserPanel .box-info>a>i.online{
+.UserPanel .box-info>.status>i.online{
     color: #00a65a ;
 }
 
-.UserPanel .box-info>a>i.ofline{
+.UserPanel .box-info>.status>i.ofline{
     color: #b8c7ce ;
 }

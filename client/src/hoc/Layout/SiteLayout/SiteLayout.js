@@ -11,35 +11,77 @@ import Order from '../../../pages/Order/Order'
 import Category from '../../../pages/Category/Category'
 import Position from '../../../pages/Position/Position'
 import ContactCenter from '../../../pages/ContactCenter/ContactCenter'
+import MyProfile from '../../../pages/MyProfile/MyProfile'
 
 class SiteLayout extends Component {
 
-    onClickToggleMenu=(event)=>{
-        console.log(event)
+    state = {
+        leftBar: {
+            small: false
+        },
+        userPanel: false,
+        navLink: [
+            {
+                to: '/profile',
+                title: '',
+                icon: 'fa-user'
+            },
+            {
+                to: '/',
+                title: 'Выйти',
+                icon: 'fa-sign-out'
+            }
+            
+        ]
+    }
+
+    onClickToggleMenu = () => {
+        const leftBar = this.state.leftBar
+        leftBar.small = !leftBar.small
+        this.setState({
+            leftBar
+        })
+    }
+
+    onClickToggleUserPanel = () => {
+       const userPanel = this.state.userPanel
+       this.setState({
+         userPanel: !userPanel
+       })
+    }
+
+    isLogout = () =>{
+        localStorage.removeItem('token')
     }
 
     render(){
         return(      
         <div className="wrapper">
-            <Navbar toggleMenu={true} leftBarToggle={(event)=>this.onClickToggleMenu(event)}/>
+            <Navbar navLink={this.state.navLink} toggleMenu={true} leftBarToggle={this.onClickToggleMenu}/>
             <div className="content">
                     <div className="SiteLayout-wrapper">
-                        <div className="SiteLayout-left-bar">
-                            <Leftbar />
+                        <div className={`SiteLayout-left-bar ${this.state.leftBar.small ? 'small' : ''}`}>
+                            <Leftbar
+                             onClickToggleUserPanel={this.onClickToggleUserPanel}
+                             userPanel={this.state.userPanel}
+                             type={this.state.leftBar.small}
+                             isLogout={this.isLogout}
+                            />
                         </div>
                         <div className="SiteLayout-content">
-                        <Switch>
-                            <Route exact path="/">
-                                <Redirect to="/home" />
-                            </Route>
-                            <Route path="/home" component={Home} />
-                            <Route path="/analytics" component={Analytics}/>
-                            <Route path="/order" component={Order}/>
-                            <Route path="/category" component={Category}/>
-                            <Route path="/position" component={Position}/>
-                            <Route path="/contact" component={ContactCenter}/>
-                            <Redirect exact to="/" />
-                        </Switch>
+                            <Switch>
+                                <Route exact path="/">
+                                    <Redirect to="/home" />
+                                </Route>
+                                <Route path="/home" component={Home}/>
+                                <Route path="/profile" component={MyProfile}/>
+                                <Route path="/analytics" component={Analytics}/>
+                                <Route path="/order" component={Order}/>
+                                <Route path="/category" component={Category}/>
+                                <Route path="/position" component={Position}/>
+                                <Route path="/contact" component={ContactCenter}/>
+                                <Redirect exact to="/" />
+                            </Switch>
                         </div>
                     </div>
             </div>

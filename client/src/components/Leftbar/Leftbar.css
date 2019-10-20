@@ -3,8 +3,10 @@
     left: 0;
     top: 0;
     bottom: 0;
+    padding: 10px 0;
     width: 100%;
     height: 100%;
+    width: 230px;
     max-width: 230px;
     box-sizing: border-box;
     background-color: #222d32;
@@ -13,21 +15,21 @@
     z-index: 90;
 }
 
-.Leftbar-small{
-    width: 50px;
+.Leftbar.small{
+    max-width: 45px;
 }
 
 .Leftbar.close{
     transform: translateX(-280px);
 }
 
-.Leftbar ul {
+.Leftbar>ul {
     list-style: none;
     margin: 0;
     padding: 10px 0;
 }
 
-.Leftbar ul>li>a {
+.Leftbar>ul>li>a {
     text-decoration: none;
     display: block;
     font-size: 12px;
@@ -41,19 +43,60 @@
     color: #b8c7ce;
 }
 
-.Leftbar ul>li>a>i {
+.Leftbar>ul>li>a>i {
     font-size: 16px;
     margin-right: 10px;
     width: 20px;
 }
 
-.Leftbar ul>li>a.active {
+.Leftbar>ul>li>a.active {
     background-color: #2d343a;
     border-left: 3px solid #3c8dbc;
     color: #fff;
 }
 
-.Leftbar ul>li>a:hover{
+.Leftbar>ul>li>a:hover{
     background-color:#2d343a;
     color: #fff;
+}
+
+.Leftbar-small {
+    width: 45px;
+}
+
+.Leftbar-small>li{
+    position: relative;
+}
+
+.Leftbar-small>li>a:hover ul{
+    display: block;
+}
+
+.Leftbar-small>li>a>ul {
+    display: none;
+    position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    left: 45px;
+    padding: 0;
+    list-style: none;
+    background-color: #222d32;
+    width: 230px;
+}
+
+.Leftbar-small>li>a>ul>li{
+    color:#fff;
+    padding: 15px 10px;
+    height: 49px;
+    box-sizing: border-box;
+}
+
+.Leftbar-small>li>a>ul>li:first-child{
+    background-color: #2d343a;
+    border: none !important;
+} 
+
+.Leftbar-small>li>a>ul>li:hover{
+  border-right: 3px solid #3c8dbc;
+  background-color: #2d343a;
 }

@@ -7,26 +7,88 @@ import UserPanel from '../UserPanel/UserPanel'
 
 
 const Leftbar = props => {
-    return(
-        <div className="Leftbar">
-            <UserPanel />
-            <Search/>
-            {/* <ul>
-                <li><NavLink to="/home"><i style={{fontSize:19.6}} className="fa fa-home" aria-hidden="true"></i>Главная</NavLink></li>
-                <li><NavLink to="/analytics"><i className="fa fa-bar-chart" aria-hidden="true"></i> CRM-аналитика</NavLink></li>
-                <li><NavLink to="/order"><i className="fa fa-shopping-basket" aria-hidden="true"></i> Заказы</NavLink></li>
-                <li><NavLink to="/category"><i className="fa fa-list-alt" aria-hidden="true"></i> Кактегории</NavLink></li>
-                <li><NavLink to="/position"><i className="fa fa-th-large" aria-hidden="true"></i> Позиции</NavLink></li>
-                <li><NavLink to="/contact"><i className="fa fa-phone-square" aria-hidden="true"></i> Контакт центр</NavLink></li>
-            </ul> */}
+    const classes = ['Leftbar']
+
+    if(props.type){
+        classes.push('small')
+    }
+
+    const Links = [
+        {
+            to: '/home',
+            title: 'Главная',
+            icon: 'fa-home'
+        },
+        {
+            to: '/analytics',
+            title: 'CRM-аналитика',
+            icon: 'fa-bar-chart'
+        },
+        {
+            to: '/order',
+            title: 'Заказы',
+            icon: 'fa-shopping-basket'
+        },
+        {
+            to: '/category',
+            title: 'Кактегории',
+            icon: 'fa-list-alt'
+        },
+        {
+            to: '/position',
+            title: 'Позиции',
+            icon: 'fa-th-large'
+        },
+        {
+            to: '/contact',
+            title: 'Контакт-центер',
+            icon: 'fa-phone-square'
+        },
+
+    ]
+
+    const renderLinks = (links, type) => {
+        const ul = type
+        ? 
+        (
             <ul className="Leftbar-small">
-                <li><NavLink to="/home"><i style={{fontSize:19.6}} className="fa fa-home" aria-hidden="true"></i>Главная</NavLink></li>
-                <li><NavLink to="/analytics"><i className="fa fa-bar-chart" aria-hidden="true"></i> CRM-аналитика</NavLink></li>
-                <li><NavLink to="/order"><i className="fa fa-shopping-basket" aria-hidden="true"></i> Заказы</NavLink></li>
-                <li><NavLink to="/category"><i className="fa fa-list-alt" aria-hidden="true"></i> Кактегории</NavLink></li>
-                <li><NavLink to="/position"><i className="fa fa-th-large" aria-hidden="true"></i> Позиции</NavLink></li>
-                <li><NavLink to="/contact"><i className="fa fa-phone-square" aria-hidden="true"></i> Контакт центр</NavLink></li>
+                {
+                    links.map((item, index) => {
+                            return (
+                                <li key={index+1}>
+                                    <NavLink to={item.to}><i className={`fa ${item.icon}`} aria-hidden="true"></i>
+                                        <ul>
+                                            <li>{item.title}</li>
+                                        </ul>
+                                    </NavLink> 
+                                </li>
+                            )
+                    })
+                }
             </ul>
+
+        )
+        :
+        (
+            <ul>
+                {
+                    links.map((item, index) => {
+                        return (
+                            <li key={index}><NavLink to={item.to}><i className={`fa ${item.icon}`} aria-hidden="true"></i>{item.title}</NavLink></li>
+                        )
+                    })
+                }
+            </ul>
+        )            
+
+        return ul
+       
+    }
+    
+    return (
+        <div className={classes.join(' ')}>
+            {props.type ? null : <div><UserPanel isLogout={props.isLogout} userPanel={props.userPanel} onClickToggleUserPanel={props.onClickToggleUserPanel}/> <Search /></div> }
+            {renderLinks(Links, props.type)}
         </div>
     )
 }
