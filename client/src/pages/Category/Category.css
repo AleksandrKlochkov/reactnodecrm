@@ -1,3 +1,39 @@
-.Category{
-    
+
+.Category .page-title{
+    justify-content: space-between;
+}
+
+.Category-box {
+    margin: 15px 0;
+}
+
+.Category-list {
+    border: 1px solid #e0e0e0;
+    display: block;
+    list-style: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.Category-list li {
+    width: 100%;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.Category-list li:last-child{
+    border-bottom: none;
+}
+
+.Category-list li>a {
+    display: block;
+    color: #23282d;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.Category-list li>a:hover{
+    background: #e0e0e0;
 }

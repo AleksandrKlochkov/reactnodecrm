@@ -189,15 +189,17 @@ class Registration extends Component {
     }
     render(){
         return(
-            <div>
-                 <Form
-                 formName={'Регистрация'}
-                 onSubmit={(event)=>this.onSubmitHandler(event)}
-                >
-                    {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
-                    {this.renderInputs()}
-                    <Button className="success" type={'submit'} >Зарегистрироваться</Button>
-                </Form>
+            <div className="Registration">
+                <div className="form-box">
+                    <Form
+                    formName={'Регистрация'}
+                    onSubmit={(event)=>this.onSubmitHandler(event)}
+                    >
+                        {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
+                        {this.renderInputs()}
+                        <Button className="success" type={'submit'} >Зарегистрироваться</Button>
+                    </Form>
+                </div>
             </div>
         )
     }

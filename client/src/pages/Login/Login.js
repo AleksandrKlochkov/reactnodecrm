@@ -146,17 +146,20 @@ class Login extends Component {
     render(){
         return(
             <div className="Login">
-                <Form
-                 formName={'Авторизация'}
-                 onSubmit={(event)=>this.onSubmitHandler(event)}
-                >
-                     {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
-                    {this.renderInputs()}
-                    <Button className="success" type={'submit'} >Войти</Button>
-                    <Link to='/register'>
-                        <Button className="primary" type={'submit'} value={'Регистрация'}>Регистрация</Button>
-                    </Link>
-                </Form>
+                <div className="form-box">
+                    <Form
+                    formName={'Авторизация'}
+                    onSubmit={(event)=>this.onSubmitHandler(event)}
+                    >
+                        {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
+                        {this.renderInputs()}
+                        <Button className="success" type={'submit'} >Войти</Button>
+                        <Link to='/register'>
+                            <Button className="primary" type={'submit'} value={'Регистрация'}>Регистрация</Button>
+                        </Link>
+                    </Form>
+                </div>
+               
             </div>
         )
     }

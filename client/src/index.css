@@ -41,3 +41,15 @@ body {
   width: 100%;
   margin: 0 auto;
 }
+
+.page-title {
+  display: flex;
+  align-items: center;
+}
+
+.page-title h1 {
+  font-size: 24px;
+  font-weight: normal;
+  color: #222d32;
+  padding: 10px 0;
+}

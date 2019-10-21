@@ -1,0 +1,10 @@
+.Registration .form-box{
+    border-radius: 5px;
+    max-width: 400px;
+    width: 93%;
+    box-sizing: border-box;
+    margin: 25px auto;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}

@@ -1,0 +1,96 @@
+
+.modal {
+    z-index: 99995;
+    will-change: visibility, opacity;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 99995;
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    /*-webkit-transition-delay: 0.5s;
+    transition-delay: 0.5s;*/
+}
+
+.modal--align-top {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    padding-top: 15px;
+}
+
+.modal_win_bg {
+    background: rgba(0,0,0,.75);
+}
+
+.modal_win_dialog {
+    max-width: 1200px;
+    padding: 1.2rem;
+    /* margin: auto; */
+}
+
+.modal_win_content {
+    z-index: 999999;
+    overflow: hidden;
+    will-change: transform, opacity;
+    position: relative;
+    padding: 15px;
+    background: #fbfbfb;
+    border-radius: 5px;
+    background-clip: padding-box;
+    box-shadow: 0 3px 7px rgba(0,0,0,.25);
+    -moz-box-shadow: 0 3px 7px rgba(0,0,0,.25);
+    -webkit-box-shadow: 0 0 11px rgba(0,0,0,.25);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    opacity: 1;
+    -webkit-transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.modal_win_close {
+    z-index: 99999;
+    cursor: pointer;
+}
+
+.modal_win_trigger:hover {
+    background: #e5d3d6;
+}
+
+.demo-close {
+    position: absolute;
+    color: #000;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    width: 17px;
+    height: 17px;
+    background-position: center top;
+    border-radius: 50%;
+}
+
+    .demo-close:hover {
+        background-position: center bottom;
+        color:  #3c8dbc;
+    }
+
+.modal_width_dialog {
+    min-width: 1200px !important;
+    max-width: 1600px !important;
+}
