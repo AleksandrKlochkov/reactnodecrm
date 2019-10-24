@@ -5,7 +5,6 @@ import './Button.css'
 const Button = props => {
         const buttonType = props.type || 'button'
         const cls = [props.className]
-        cls.push('asd')
 
         return(
             <div className="Button">

@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import './Category.css'
-import {NavLink, Link} from 'react-router-dom'
+import {NavLink, Link, Route, Switch} from 'react-router-dom'
 
 import Button from '../../components/UI/Button/Button'
 import Breadcrumbs from '../../components/UI/Breadcrumbs/Breadcrumbs'
-import CategoryEditing from './CategoryEditing/CategoryEditing'
+import CategoryEditing from '../CategoryEditing/CategoryEditing'
 
 
 class Category extends Component {
@@ -23,7 +23,6 @@ class Category extends Component {
                 title: 'Категория 2',
                 to: '/category2'
             },
-
         ]
     }
 
@@ -48,22 +47,27 @@ class Category extends Component {
     }
 
     render(){
+        const {location, match} = this.props
         return(
             <div className="Category">
                 <Breadcrumbs />
                 <div className="page-title">
                     <h1> Категории</h1>
-                    <Link to={'/category/editing'}>
-                        <Button className={'success'}>Добавить категорию</Button>
-                    </Link>
+                    {location.pathname === match.url ?
+                        <Link to={`/category/editing`}>
+                            <Button className={'navyblue'}>Добавить категорию</Button>
+                        </Link>
+                    : null
+                    }
                 </div>
-                <CategoryEditing />
                 <div className="Category-box">
-                   {this.renderCategoriesList()}
+                   <Switch>
+                    <Route exact path={'/category'}>
+                        {this.renderCategoriesList()}
+                    </Route>
+                    <Route path={'/category/editing'} component={CategoryEditing} />
+                </Switch>
                 </div>
-
-
-
             </div>
         )
     }

@@ -3,13 +3,22 @@
 }
 
 .Button button {
+    position: relative;
     outline: none;
     cursor: pointer;
+    vertical-align: middle;
     margin: 5px;
-    padding: 10px 25px;
+    padding: 0px 15px;
+    line-height: 35px;
     color: #282828;
     border: none;
     box-shadow: 2px 2px 2px rgba(0,0,0,.5);
+}
+
+.Button button>i {
+    line-height: inherit;
+    float: left;
+    margin-right: 10px;
 }
 
 .Button button:active{
@@ -31,3 +40,17 @@
     background-color: #2884f6;
     border-color: #b8daff;
 }
+
+.navyblue {
+    color: #fff !important;
+    background-color: #043c82;
+    border-color: #147def;
+}
+
+.orange {
+    color: #fff !important;
+    background-color: #ffb74d !important;
+    border-color: #b8daff;
+}
+
+

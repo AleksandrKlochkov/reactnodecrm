@@ -10,10 +10,10 @@ const UserPanel = props => {
             <div>
                 <div className="box-user">
                     <div className="box-image">
-                        <img src="uploads/avatar.jpg" className="img-circle" alt="User images"/>
+                        <img src="/uploads/avatar.jpg" className="img-circle" alt="User images"/>
                     </div>
                     <div className="box-info">
-                        <p>Alexander Pierce</p>
+                        <p>Alexander Smit</p>
                         <p className="status"><i className="fa fa-circle online"></i> Online</p>
                     </div>
                 </div>

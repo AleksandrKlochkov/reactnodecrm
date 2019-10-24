@@ -73,13 +73,14 @@ class SiteLayout extends Component {
                                 <Route exact path="/">
                                     <Redirect to="/home" />
                                 </Route>
-                                <Route exact path="/home" component={Home}/>
-                                <Route exact path="/profile" component={MyProfile}/>
-                                <Route exact path="/analytics" component={Analytics}/>
-                                <Route exact path="/order" component={Order}/>
+                                <Route path="/home" component={Home}/>
+                                <Route path="/profile" component={MyProfile}/>
+                                <Route path="/analytics" component={Analytics}/>
+                                <Route path="/order" component={Order}/>
                                 <Route path="/category" component={Category}/>
-                                <Route exact path="/position" component={Position}/>
-                                <Route exact path="/contact" component={ContactCenter}/>
+                                {/* <Route path="/category/:editing" component={CategoryEditing}/> */}
+                                <Route path="/position" component={Position}/>
+                                <Route path="/contact" component={ContactCenter}/>
                                 <Redirect to="/" />
                             </Switch>
                         </div>

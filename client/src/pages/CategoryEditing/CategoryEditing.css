@@ -1,0 +1,31 @@
+.CategoryEditing {
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.CategoryEditing .button-box {
+    display: flex;
+}
+
+.CategoryEditing>div{
+    width:50%;
+    box-sizing: border-box;
+}
+
+.CategoryEditing .img-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CategoryEditing .img-box img{
+    width: auto;
+    height: 200px;
+}
+
+@media (max-width: 900px){
+    .CategoryEditing>div{
+        width:100%;
+    }
+}
