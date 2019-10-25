@@ -4,13 +4,14 @@ import Form from '../../components/Form/Form'
 import Input from '../../components/UI/Input/Input'
 import Button from '../../components/UI/Button/Button'
 import {Link} from 'react-router-dom'
-import {validateControl, alertMessage} from '../../form/formValidation'
+import {validateControl} from '../../form/formValidation'
 import Alert from '../../components/UI/Alert/Alert'
+import {connect} from 'react-redux'
+import {auth} from '../../store/actions/auth'
 
 class Login extends Component {
 
     state = {
-        alertMessage: alertMessage('danger','Произошла непредвиденная ошибка',false),
         isFormValid: false,
         formControls: {
             email: {
@@ -79,41 +80,7 @@ class Login extends Component {
         })
 
         if(isFormValid){
-            fetch('/api/auth/login',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({email: formControls['email'].value,password: formControls['password'].value})
-            })
-            .then(response => {
-                return response.json()
-            })
-            .then(data=>{
-                if(data.message){
-                    this.setState ({
-                        alertMessage: alertMessage('danger',data.message)
-                    })
-                }else{
-                    if(data.token){
-                        localStorage.setItem('token', data.token)
-                        window.location.href='/'
-                        this.setState ({
-                            alertMessage: alertMessage('success', 'Вход выполнен!')
-                        })
-                    }else{
-                        this.setState ({
-                            alertMessage:  alertMessage('danger','Авторизоваться не удалось. Попробуйте снова или повторите позже.')
-                        })
-                    }
-                }
-            })
-            .catch(e => {
-                this.setState ({
-                    alertMessage:  alertMessage('danger', e)
-                })
-            })
+            this.props.auth(formControls['email'].value, formControls['password'].value, true)
         }else{
             this.setState({
                 formControls, isFormValid
@@ -151,7 +118,7 @@ class Login extends Component {
                     formName={'Авторизация'}
                     onSubmit={(event)=>this.onSubmitHandler(event)}
                     >
-                        {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
+                        {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.message}/> : null}
                         {this.renderInputs()}
                         <Button className="success" type={'submit'} >Войти</Button>
                         <Link to='/register'>
@@ -165,4 +132,17 @@ class Login extends Component {
     }
 }
 
-export default Login
+function mapStateToProps(state){
+    return {
+        alertMessage: state.auth.alertMessage
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        auth: (email, password, isLogin) => dispatch(auth(email, password, isLogin))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

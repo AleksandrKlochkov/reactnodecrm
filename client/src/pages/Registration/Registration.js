@@ -6,6 +6,8 @@ import Button from '../../components/UI/Button/Button'
 import Alert from '../../components/UI/Alert/Alert'
 
 import {validateControl, alertMessage} from '../../form/formValidation'
+import {registration} from '../../store/actions/registration'
+import {connect} from 'react-redux'
 
 
 class Registration extends Component {
@@ -115,50 +117,7 @@ class Registration extends Component {
         })
 
         if(isFormValid){
-           
-            try{
-                await fetch('/api/auth/register', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({email: formControls['email'].value,password: formControls['password'].value})
-                    })
-                    .then(response => {
-                        return response.json()
-                    })
-                    .then(data=>{
-                        if(data.message){
-                            this.setState(
-                                {
-                                    alertMessage: alertMessage('danger',data.message),
-                                }
-                            )
-                        }else{
-                            Object.keys(controls).forEach(index => {
-                                controls[index].value = ''
-                            })
-                            this.setState({
-                                alertMessage: alertMessage('success','Вы успешно зарегистрировались!'),
-                                formControls
-                            })
-                            window.setTimeout(()=>{
-                                window.location.href='/'
-                            }, 1500)
-                            
-                        }
-                    })
-                    .catch(e => {
-                        this.setState({
-                            alertMessage: alertMessage('danger',e),
-                        })
-                    })
-            }catch(e){
-                    this.setState({
-                        alertMessage: alertMessage('danger',e),
-                    })
-            }
+           this.props.registration(formControls.email.value, formControls.password.value)
         }else{
             this.setState({
                 formControls, isFormValid
@@ -205,4 +164,10 @@ class Registration extends Component {
     }
 }
 
-export default Registration
+function mapDispatchToProps(dispatch){
+    return{
+        registration: (email,password) => dispatch(registration(email,password))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Registration)

@@ -21,7 +21,7 @@ const UserPanel = props => {
                         ?
                             <ul>
                                 <li><NavLink to="/profile"><i className="fa fa-user" aria-hidden="true"></i> Мой профиль</NavLink></li>
-                                <li><NavLink exact to="/" onClick={props.isLogout}><i className="fa fa-sign-out" aria-hidden="true"></i> Выйти</NavLink></li>
+                                <li><NavLink to="/logout" onClick={props.isLogout}><i className="fa fa-sign-out" aria-hidden="true"></i> Выйти</NavLink></li>
                             </ul> 
                         :
                             null

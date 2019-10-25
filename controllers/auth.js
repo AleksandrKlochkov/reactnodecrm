@@ -6,6 +6,7 @@ const errorHandler = require('../utils/errorHandler')
 
 
 module.exports.login = async function(req, res) {
+  
   const candidate = await User.findOne({email: req.body.email})
 
   if (candidate) {
@@ -18,8 +19,11 @@ module.exports.login = async function(req, res) {
         userId: candidate._id
       }, keys.jwt, {expiresIn: 60 * 60})
 
+      const expiresIn = jwt.decode(token).exp
+
       res.status(200).json({
-        token: `Bearer ${token}`
+        token: `Bearer ${token}`,
+        expiresIn
       })
     } else {
       // Пароли не совпали

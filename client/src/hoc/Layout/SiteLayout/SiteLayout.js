@@ -12,6 +12,7 @@ import Category from '../../../pages/Category/Category'
 import Position from '../../../pages/Position/Position'
 import ContactCenter from '../../../pages/ContactCenter/ContactCenter'
 import MyProfile from '../../../pages/MyProfile/MyProfile'
+import Logout from '../../../components/Logout/Logout'
 
 class SiteLayout extends Component {
 
@@ -27,7 +28,7 @@ class SiteLayout extends Component {
                 icon: 'fa-user'
             },
             {
-                to: '/',
+                to: '/logout',
                 title: 'Выйти',
                 icon: 'fa-sign-out'
             }
@@ -78,9 +79,9 @@ class SiteLayout extends Component {
                                 <Route path="/analytics" component={Analytics}/>
                                 <Route path="/order" component={Order}/>
                                 <Route path="/category" component={Category}/>
-                                {/* <Route path="/category/:editing" component={CategoryEditing}/> */}
                                 <Route path="/position" component={Position}/>
                                 <Route path="/contact" component={ContactCenter}/>
+                                <Route path="/logout" component={Logout}/>
                                 <Redirect to="/" />
                             </Switch>
                         </div>
