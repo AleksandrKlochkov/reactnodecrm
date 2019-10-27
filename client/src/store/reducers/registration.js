@@ -1,19 +1,15 @@
-import {alertMessage} from '../../form/formValidation'
+import {REGISTRATION_SUCCESS} from '../actions/actionTypes'
 const initialState = {
-    token: null,
-    alertMessage: alertMessage('danger','Произошла непредвиденная ошибка',false)
+    registration: true 
 }
 
 export default function registrationReducer(state=initialState, action){
     switch (action.type){
-        // case REGISTRATION_SUCCESS:
-        //     return{
-        //         ...state, token: action.token
-        //     }
-        // case REGISTRATION_MESSAGE:
-        //         return{
-        //             ...state, alertMessage: action.alertMessage
-        //         }
+        case REGISTRATION_SUCCESS:
+            return{
+                ...state
+            }
+
         default:
             return state
     }

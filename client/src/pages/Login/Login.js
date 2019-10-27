@@ -118,7 +118,7 @@ class Login extends Component {
                     formName={'Авторизация'}
                     onSubmit={(event)=>this.onSubmitHandler(event)}
                     >
-                        {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.message}/> : null}
+                        {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.text}/> : null}
                         {this.renderInputs()}
                         <Button className="success" type={'submit'} >Войти</Button>
                         <Link to='/register'>
@@ -134,7 +134,7 @@ class Login extends Component {
 
 function mapStateToProps(state){
     return {
-        alertMessage: state.auth.alertMessage
+        alertMessage: state.alertMessage.alertMessage
     }
 }
 

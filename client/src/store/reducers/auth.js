@@ -1,8 +1,6 @@
-import {alertMessage} from '../../form/formValidation'
-import {AUTH_SUCCESS, ALERT_MESSAGE, AUTH_LOGOUT} from '../actions/actionTypes'
+import {AUTH_SUCCESS, AUTH_LOGOUT} from '../actions/actionTypes'
 const initialState = {
-    token: null,
-    alertMessage: alertMessage('danger','Произошла непредвиденная ошибка',false)
+    token: null
 }
 
 export default function authReducer(state=initialState, action){
@@ -11,16 +9,10 @@ export default function authReducer(state=initialState, action){
             return{
                 ...state, token: action.token
             }
-        case ALERT_MESSAGE:
-                return{
-                    ...state, alertMessage: action.alertMessage
-                }
         case AUTH_LOGOUT:
             return{
                 ...state, token: null
             }
-
-                
         default:
             return state
     }

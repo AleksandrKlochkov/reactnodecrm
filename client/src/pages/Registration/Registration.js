@@ -103,8 +103,6 @@ class Registration extends Component {
 
     onSubmitHandler = async (event) => {
         event.preventDefault()
-        const controls = event.target.querySelectorAll('input')
-
         const formControls = {...this.state.formControls}
 
         let isFormValid = true
@@ -118,6 +116,9 @@ class Registration extends Component {
 
         if(isFormValid){
            this.props.registration(formControls.email.value, formControls.password.value)
+           this.setState({
+                formControls
+           })
         }else{
             this.setState({
                 formControls, isFormValid
@@ -154,7 +155,7 @@ class Registration extends Component {
                     formName={'Регистрация'}
                     onSubmit={(event)=>this.onSubmitHandler(event)}
                     >
-                        {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
+                        {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.text}/> : null}
                         {this.renderInputs()}
                         <Button className="success" type={'submit'} >Зарегистрироваться</Button>
                     </Form>
@@ -164,10 +165,16 @@ class Registration extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return{
+        alertMessage: state.alertMessage.alertMessage
+    }
+}
+
 function mapDispatchToProps(dispatch){
     return{
         registration: (email,password) => dispatch(registration(email,password))
     }
 }
 
-export default connect(null, mapDispatchToProps)(Registration)
+export default connect(mapStateToProps, mapDispatchToProps)(Registration)

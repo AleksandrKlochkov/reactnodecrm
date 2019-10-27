@@ -3,7 +3,7 @@ import AuthLayout from './hoc/Layout/AuthLayout/AuthLayout'
 import SiteLayout from './hoc/Layout/SiteLayout/SiteLayout'
 import {connect} from 'react-redux'
 import {autoLogin} from './store/actions/auth'
-// import {Switch, Route, Redirect} from 'react-router-dom'
+
 
 class App extends Component {
 

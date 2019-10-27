@@ -9,6 +9,8 @@ import {createStore, compose, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import rootReducer from './store/reducers/rootReducer'
 import thunk from 'redux-thunk'
+import {redirect} from './middlewares/redirect'
+import {unregister} from './services/interseptor/interseptor'
 
 const composeEnhancers =
   typeof window === 'object' &&
@@ -19,7 +21,7 @@ const composeEnhancers =
 const store =  createStore(
     rootReducer,
     composeEnhancers(
-        applyMiddleware(thunk)
+        applyMiddleware(thunk), applyMiddleware(redirect)
     )
 )
 

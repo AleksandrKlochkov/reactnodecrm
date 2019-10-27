@@ -1,39 +1,27 @@
 import React, {Component} from 'react'
 import './Category.css'
 import {NavLink, Link, Route, Switch} from 'react-router-dom'
-
 import Button from '../../components/UI/Button/Button'
+import Alert from '../../components/UI/Alert/Alert'
 import Breadcrumbs from '../../components/UI/Breadcrumbs/Breadcrumbs'
 import CategoryEditing from '../CategoryEditing/CategoryEditing'
+import Loading from '../../components/Loading/Loading'
+import {connect} from 'react-redux'
+import {category} from '../../store/actions/category'
 
 
 class Category extends Component {
 
-    state = {
-        сategories: [
-            {
-                title: 'Категория 1',
-                to: '/category1'
-            },
-            {
-                title: 'Категория 2',
-                to: '/category2'
-            },
-            {
-                title: 'Категория 2',
-                to: '/category2'
-            },
-        ]
-    }
 
-    renderCategoriesList = () => {
-        const categories = this.state.сategories
 
-        if(categories){
+
+    renderCategoriesList(){
+        const categoriesList = this.props.сategories
+        if(categoriesList){
             return (
                 <ul className="Category-list">
                     {
-                        categories.map((item, index)=>{
+                        categoriesList.map((item, index)=>{
                             return (
                                 <li key={index}><NavLink to={item.to}>{item.title}</NavLink></li>
                             )
@@ -46,7 +34,12 @@ class Category extends Component {
         return 'У Вас пока нет доступных категорий'
     }
 
+    componentDidMount(){
+        this.props.category()
+    }
+
     render(){
+        console.log(this.props)
         const {location, match} = this.props
         return(
             <div className="Category">
@@ -61,6 +54,8 @@ class Category extends Component {
                     }
                 </div>
                 <div className="Category-box">
+                    <Loading />
+                {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.message}/> : null}
                    <Switch>
                     <Route exact path={'/category'}>
                         {this.renderCategoriesList()}
@@ -73,4 +68,18 @@ class Category extends Component {
     }
 }
 
-export default Category
+function mapStateToProps(state){
+    console.log(state)
+    return{
+        сategories: state.category.сategories,
+        alertMessage: state.alertMessage.alertMessage
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        category: () => dispatch(category())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

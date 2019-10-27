@@ -71,11 +71,11 @@ class CategoryEditing extends Component {
         event.preventDefault()
         const controls = event.target.querySelectorAll('input')
         const inputFile = event.target.querySelector('input[type=file]')
-        let file = {}
+        let file = ''
         if(inputFile.files[0]){
             file = inputFile.files[0]
         }
-        console.log(file)
+        
 
         const formControls = {...this.state.formControls}
 
@@ -87,11 +87,12 @@ class CategoryEditing extends Component {
             control.validOptions = validateControl(control.value, control.validation, formControls)
             isFormValid = formControls[name].validOptions.valid && isFormValid
         })
+        console.log(file, formControls['titleCategory'].value)
+
 
         if(isFormValid){
-           
             try{
-                await fetch('/api/category/create', {
+                await fetch('/api/category', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -103,13 +104,16 @@ class CategoryEditing extends Component {
                         return response.json()
                     })
                     .then(data=>{
+                        console.log(data)
                         if(data.message){
+
                             this.setState(
                                 {
                                     alertMessage: alertMessage('danger',data.message),
                                 }
                             )
                         }else{
+                            console.log(data)
                             Object.keys(controls).forEach(index => {
                                 controls[index].value = ''
                             })
@@ -161,7 +165,7 @@ class CategoryEditing extends Component {
     render(){
         return (
             <div className="CategoryEditing">
-                 {this.state.alertMessage.show ? <Alert type={this.state.alertMessage.type} message={this.state.alertMessage.message}/> : null}
+               
                 <div>
                     <Form onSubmit={(event)=>this.onSubmitEditingCategory(event)} formName='Добавить категорию'>
                         {this.renderInputs()}
@@ -172,7 +176,7 @@ class CategoryEditing extends Component {
                     </Form>
                 </div>
                 <div className="img-box">
-                   <img src={`${this.state.imageCtegory}`} alt="asd"/> {/* http://localhost:5000/uploads/ */}
+                   <img src={`${this.state.imageCtegory}`} alt="asd"/>
                 </div>
             </div>
         )

@@ -1,5 +1,5 @@
-import {ALERT_MESSAGE, AUTH_SUCCESS, AUTH_LOGOUT} from './actionTypes'
-import { alertMessage } from '../../form/formValidation'
+import {AUTH_SUCCESS, AUTH_LOGOUT} from './actionTypes'
+import {alertMessage} from '../actions/alertMessage'
 
 
 export function auth(email, password, isLogin){
@@ -26,7 +26,7 @@ export function auth(email, password, isLogin){
                 })
                 .then(data=>{
                     if(data.message){
-                        dispatch(messageShow(alertMessage('danger',data.message)))
+                        dispatch(alertMessage('danger',data.message, true))
                     }else{
                         if(data.token){
                             const experationDate = new Date(data.expiresIn*1000)
@@ -35,16 +35,16 @@ export function auth(email, password, isLogin){
                             dispatch(authSuccess(data.token))
                             dispatch(authLogout(data.expiresIn))
                         }else{
-                            dispatch(messageShow(alertMessage('danger','Авторизоваться не удалось. Попробуйте снова или повторите позже.')))
+                           dispatch(alertMessage('danger','Авторизоваться не удалось. Попробуйте снова или повторите позже.', true))
                         }
                     }
                 })
                 .catch(e => {
-                    dispatch(messageShow(alertMessage('danger', e)))
+                    dispatch(alertMessage('danger', e, true))
                 })
             }
         }catch(e){
-            dispatch(messageShow(alertMessage('danger', e)))
+            dispatch(alertMessage('danger', e, true))
         }
     }
 }
@@ -72,22 +72,15 @@ export function logout(){
     }
 }
 
-export function messageShow(alertMessage){
-    return {
-        type: ALERT_MESSAGE, alertMessage
-
-    }
-}
-
 export function autoLogin() {
     return dispatch => {
         const token = localStorage.getItem('token')
         if(!token) {
             dispatch(logout())
         }else{
-            const experationDate = new Date(localStorage.getItem('expirationDate'))
+            const experationDate = new Date(localStorage.getItem('experationDate'))
             if(experationDate<=new Date()){
-                dispatch(logout())
+               dispatch(logout())
             }else{
                 dispatch(authSuccess(token))
                 dispatch(authLogout((experationDate.getTime() - new Date().getTime()) / 1000))

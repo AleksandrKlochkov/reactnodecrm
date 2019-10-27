@@ -1,3 +1,6 @@
+import {alertMessage} from '../actions/alertMessage'
+import {REDIRECT, REGISTRATION_SUCCESS} from '../actions/actionTypes'
+
 export function registration(email,password){
     return async dispatch => {
         try{
@@ -14,37 +17,26 @@ export function registration(email,password){
                 })
                 .then(data=>{
                     if(data.message){
-                        console.log(data.message)
-                        // this.setState(
-                        //     {
-                        //         alertMessage: alertMessage('danger',data.message),
-                        //     }
-                        // )
+                        dispatch(alertMessage('danger', data.message, true))
                     }else{
-                        console.log(data)
-                        // Object.keys(controls).forEach(index => {
-                        //     controls[index].value = ''
-                        // })
-                        // this.setState({
-                        //     alertMessage: alertMessage('success','Вы успешно зарегистрировались!'),
-                        //     formControls
-                        // })
-                        // window.setTimeout(()=>{
-                        //     window.location.href='/'
-                        // }, 1500)
-                        
+                        dispatch(alertMessage('success', 'Пользователь успешно зарегистрирован!', true))
+                        dispatch(registrationSuccess())
+                        dispatch({type: REDIRECT, payload: {method: 'push', nextUrl: '/'}})
+                        window.location.href='/'
                     }
                 })
                 .catch(e => {
-                    // this.setState({
-                    //     alertMessage: alertMessage('danger',e),
-                    // })
+                    dispatch(alertMessage('danger',e, true))
                 })
         }catch(e){
-                // this.setState({
-                //     alertMessage: alertMessage('danger',e),
-                // })
+            dispatch(alertMessage('danger',e, true))
         }
+    }
+}
+
+export function registrationSuccess(){
+    return {
+       type: REGISTRATION_SUCCESS
     }
 }
 
