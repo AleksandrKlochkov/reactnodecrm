@@ -7,23 +7,19 @@ import Breadcrumbs from '../../components/UI/Breadcrumbs/Breadcrumbs'
 import CategoryEditing from '../CategoryEditing/CategoryEditing'
 import Loading from '../../components/Loading/Loading'
 import {connect} from 'react-redux'
-import {category} from '../../store/actions/category'
+import {fetchCategory} from '../../store/actions/category'
 
 
 class Category extends Component {
-
-
-
-
     renderCategoriesList(){
-        const categoriesList = this.props.сategories
-        if(categoriesList){
+        const categories = this.props.сategories
+        if(categories.length>0){
             return (
                 <ul className="Category-list">
                     {
-                        categoriesList.map((item, index)=>{
+                        categories.map((item, index)=>{
                             return (
-                                <li key={index}><NavLink to={item.to}>{item.title}</NavLink></li>
+                                <li key={index}><NavLink data-id={item._id} to={`category/editing/${item._id}`}>{item.name}</NavLink></li>
                             )
                         })
                     }
@@ -35,11 +31,10 @@ class Category extends Component {
     }
 
     componentDidMount(){
-        this.props.category()
+        this.props.fetchCategory()
     }
 
     render(){
-        console.log(this.props)
         const {location, match} = this.props
         return(
             <div className="Category">
@@ -54,14 +49,13 @@ class Category extends Component {
                     }
                 </div>
                 <div className="Category-box">
-                    <Loading />
-                {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.message}/> : null}
+                   {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.message}/> : null}
                    <Switch>
-                    <Route exact path={'/category'}>
-                        {this.renderCategoriesList()}
-                    </Route>
-                    <Route path={'/category/editing'} component={CategoryEditing} />
-                </Switch>
+                        <Route exact path={'/category'}>
+                            {this.props.loading ? <Loading /> : this.renderCategoriesList()}
+                        </Route>
+                        <Route path={'/category/editing/:id?'} component={CategoryEditing} />
+                    </Switch>
                 </div>
             </div>
         )
@@ -69,16 +63,16 @@ class Category extends Component {
 }
 
 function mapStateToProps(state){
-    console.log(state)
     return{
         сategories: state.category.сategories,
-        alertMessage: state.alertMessage.alertMessage
+        alertMessage: state.alertMessage.alertMessage,
+        loading: state.category.loading
     }
 }
 
 function mapDispatchToProps(dispatch){
     return{
-        category: () => dispatch(category())
+        fetchCategory: () => dispatch(fetchCategory())
     }
 }
 

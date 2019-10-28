@@ -1,4 +1,4 @@
 import React from 'react'
 import './Loading.css'
 
-export default Loading  => <div class="Loadin"><div /><div/><div/><div/></div>
+export default Loading  => <div className="Loading-box"><div className="Loadin"><div /><div/><div/><div/></div></div>

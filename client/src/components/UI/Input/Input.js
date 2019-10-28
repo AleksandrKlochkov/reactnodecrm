@@ -23,6 +23,7 @@ const Input = props => {
                     id={inputFor.split('.').join('')}
                     type={inputType}
                     name={props.name}
+                    autoComplete={inputType}
                     placeholder={inputPlaceholder}
                     onChange={props.onChange}
                 />   

@@ -5,7 +5,6 @@ import Input from '../../components/UI/Input/Input'
 import {alertMessage, validateControl} from '../../form/formValidation'
 import Button from '../../components/UI/Button/Button'
 import ButtonFile from '../../components/UI/ButtonFile/ButtonFile'
-import Alert from '../../components/UI/Alert/Alert.js'
 
 class CategoryEditing extends Component {
 
@@ -29,7 +28,11 @@ class CategoryEditing extends Component {
                 }         
               }
         },
-        imageCtegory: '/uploads/no_image.jpg'
+        imageControl: {
+            default: '/uploads/no_image.jpg',
+            imageSrc: '/uploads/no_image.jpg',
+            imageUpload: ''
+        }
     }
 
     onChangeHandler(event, controlName){
@@ -54,29 +57,27 @@ class CategoryEditing extends Component {
 
     uploadsFiles = (event) => {
         const file = event.target.files[0]
+        const imageControl = this.state.imageControl
+        imageControl.imageUpload = file
+        this.setState({
+            imageControl
+        })
+        
         const reader = new FileReader()
-       
-    
-            reader.onload = () => {
+        reader.onload = () => {
+            imageControl.imageSrc = reader.result
             this.setState({
-                imageCtegory: reader.result
+                imageControl
             })
         }
-    
         reader.readAsDataURL(file)
-        
     }
 
     onSubmitEditingCategory = async (event) => {
         event.preventDefault()
         const controls = event.target.querySelectorAll('input')
-        const inputFile = event.target.querySelector('input[type=file]')
-        let file = ''
-        if(inputFile.files[0]){
-            file = inputFile.files[0]
-        }
-        
-
+        const imageControl = this.state.imageControl
+        const image = imageControl.imageUpload
         const formControls = {...this.state.formControls}
 
         let isFormValid = true
@@ -87,45 +88,36 @@ class CategoryEditing extends Component {
             control.validOptions = validateControl(control.value, control.validation, formControls)
             isFormValid = formControls[name].validOptions.valid && isFormValid
         })
-        console.log(file, formControls['titleCategory'].value)
 
+        const data = new FormData()
+        if(image){
+            data.append('image', image, image.name)
+        }
+        data.append('name', formControls['titleCategory'].value)
 
         if(isFormValid){
             try{
                 await fetch('/api/category', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({name: formControls['titleCategory'].value,file: file})
-                    })
+                    method: 'POST',
+                    headers: {
+                                'Accept': 'application/json'
+                            },
+                    body: data
+                  })
                     .then(response => {
                         return response.json()
                     })
                     .then(data=>{
-                        console.log(data)
-                        if(data.message){
-
-                            this.setState(
-                                {
-                                    alertMessage: alertMessage('danger',data.message),
-                                }
-                            )
-                        }else{
-                            console.log(data)
-                            Object.keys(controls).forEach(index => {
-                                controls[index].value = ''
-                            })
-                            this.setState({
-                                alertMessage: alertMessage('success','Категория успешно создана!'),
-                                formControls
-                            })
-                        }
-                    })
-                    .catch(e => {
+                        Object.keys(controls).map(key=>{
+                            const control = controls[key]
+                            return control.value=''
+                        })
+                        formControls['titleCategory'].value=''
+                        imageControl.imageSrc=this.state.imageControl.default
+                        imageControl.imageUpload=''
                         this.setState({
-                            alertMessage: alertMessage('danger',e),
+                            imageControl,
+                            formControls
                         })
                     })
             }catch(e){
@@ -162,7 +154,15 @@ class CategoryEditing extends Component {
         })
     }
 
+    async componentDidMount(){
+        const id = this.props.match.params.id
+        if(id){
+            
+        }
+    }
+
     render(){
+        console.log(this.props.match.params.id)
         return (
             <div className="CategoryEditing">
                
@@ -176,7 +176,7 @@ class CategoryEditing extends Component {
                     </Form>
                 </div>
                 <div className="img-box">
-                   <img src={`${this.state.imageCtegory}`} alt="asd"/>
+                   <img src={`${this.state.imageControl.imageSrc}`} alt="asd"/>
                 </div>
             </div>
         )
