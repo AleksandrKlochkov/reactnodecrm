@@ -8,7 +8,7 @@ import Button from '../../components/UI/Button/Button'
 import ButtonFile from '../../components/UI/ButtonFile/ButtonFile'
 
 import {connect} from 'react-redux'
-import {addCategory, fetchCategoryById} from '../../store/actions/category'
+import {addCategory, editingCategory, fetchCategoryById} from '../../store/actions/category'
 import Loading from '../../components/Loading/Loading'
 
 
@@ -37,12 +37,13 @@ class CategoryEditing extends Component {
         },
         imageControl: {
             defaultImageSrc: 'uploads/no_image.jpg',
+            imageSrc: '',
             imageUpload: ''
         }
     }
 
     onChangeHandler(event, controlName){
-        const formControls = { ...this.props.formControls}
+        const formControls = { ...this.state.formControls}
         const control = {...formControls[controlName]}
         control.value = event.target.value
         control.touched = true
@@ -65,15 +66,14 @@ class CategoryEditing extends Component {
         const file = event.target.files[0]
         const imageControl = this.state.imageControl
         imageControl.imageUpload = file
+
         this.setState({
             imageControl
         })
       
-        
         const reader = new FileReader()
         reader.onload = () => {
-            imageControl.defaultImageSrc = reader.result
-            console.log(imageControl)
+            imageControl.imageSrc = reader.result
             this.setState({
                 imageControl
             })
@@ -83,11 +83,13 @@ class CategoryEditing extends Component {
 
     onSubmitEditingCategory = (event) => {
         event.preventDefault()
-        const imageControl = this.props.imageControl
+        const categoryId = this.props.match.params.id
+        const imageControl = this.state.imageControl
         const image = imageControl.imageUpload
-        const formControls = {...this.props.formControls}
+        const formControls = {...this.state.formControls}
 
         let isFormValid = true
+
         Object.keys(formControls).forEach(name => {
             const control = formControls[name]
             control.value = formControls[name].value
@@ -107,7 +109,7 @@ class CategoryEditing extends Component {
                     this.props.addCategory(data)
                     this.functionControlsClear(formControls, imageControl)
                 }else{
-                   // this.props.addCategory(data)
+                    this.props.editingCategory(categoryId, data)
                 }
         }else{
             this.setState({
@@ -121,6 +123,7 @@ class CategoryEditing extends Component {
         formControls['titleCategory'].value=''
         imageControl.defaultImageSrc=this.state.imageControl.defaultImageSrc
         imageControl.imageUpload=''
+        imageControl.imageSrc=''
         this.setState({
             imageControl,
             formControls
@@ -129,16 +132,17 @@ class CategoryEditing extends Component {
 
     renderInputs(){
         let nameCategory = ''
-        if(!this.state.isNew){
-            nameCategory = this.props.category.name
-        }
         return Object.keys(this.state.formControls).map((controlName, index)=> {
             const control = this.state.formControls[controlName]
+            // if(!this.state.isNew){
+            //     nameCategory = this.props.category.name
+            //     control.titleCategory.value = nameCategory || control.titleCategory.value
+            // }
             return(
                 <Input
                     key={controlName + index}
                     type={control.type}
-                    value={control.value || nameCategory}
+                    value={control.value}
                     valid={control.validOptions.valid}
                     placeholder={control.placeholder}
                     name={controlName}
@@ -153,10 +157,15 @@ class CategoryEditing extends Component {
     }
 
     renderCategoruEditing(){
-        let uploadImageSrc = this.state.imageControl.defaultImageSrc
+        let uploadImageSrc = '/'+this.state.imageControl.defaultImageSrc
         if(!this.state.isNew){
-            uploadImageSrc = this.props.category.imageSrc 
+            console.log('this.state.imageControl.imageSrc', this.state.imageControl.imageSrc)
+            console.log('this.props.category.imageSrc', this.props.category.imageSrc)
+            uploadImageSrc = this.state.imageControl.imageSrc ? this.state.imageControl.imageSrc : '/'+this.props.category.imageSrc
+        }else{
+            uploadImageSrc = this.state.imageControl.imageSrc ? this.state.imageControl.imageSrc : '/'+this.state.imageControl.defaultImageSrc
         }
+
         return(
             <div className="CategoryEditing">
                 <div>
@@ -169,19 +178,45 @@ class CategoryEditing extends Component {
                     </Form>
                 </div>
                 <div className="img-box">
-                     <img src={`/${this.props.category.imageSrc || uploadImageSrc ? uploadImageSrc : this.state.imageControl.defaultImageSrc}`} alt="asd"/>
+                     <img src={`${uploadImageSrc ? uploadImageSrc : '/'+this.state.imageControl.defaultImageSrc}`} alt="Category"/>
                 </div>
             </div>
         )
     }
 
-     componentDidMount(){
+     async componentDidMount(){
         const id = this.props.match.params.id
+        const formControls = {...this.state.formControls}
+        const imageControl = this.state.imageControl
+
             if(id){
                 this.props.fetchCategoryById(id)
-                this.setState({
-                    isNew: false,
-                })
+                try{
+                    await fetch(`/api/category/${id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data=>{
+                        const category = data
+                       
+                        formControls.titleCategory.value = category.name
+                        imageControl.imageSrc = '/'+category.imageSrc
+                        this.setState({
+                            isNew: false,
+                            formControls,
+                            imageControl
+                        })
+                    })
+                }catch(e){
+                    console.log(e)
+                }
+
             }else{
                 this.setState({
                     isNew: true
@@ -215,7 +250,8 @@ function mapStateToProps(state){
 function mapDispatchToProps(dispatch){
     return{
         addCategory: (data)=>dispatch(addCategory(data)),
-        fetchCategoryById: (id)=>dispatch(fetchCategoryById(id))
+        fetchCategoryById: (id)=>dispatch(fetchCategoryById(id)),
+        editingCategory: (id, data) =>dispatch(editingCategory(id, data))
     }
 }
 

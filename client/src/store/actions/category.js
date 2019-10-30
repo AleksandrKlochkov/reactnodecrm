@@ -1,4 +1,4 @@
-import {FETCH_CATEGORY_START, FETCH_CATEGORY_SUCCESS, ADD_CATEGORY_SUCCESS, FETCH_CATEGORY_BY_ID_SUCCESS, FETCH_CATEGORY_BY_ID_START, FETCH_CATEGORY_BY_ID_END} from "./actionTypes"
+import {FETCH_CATEGORY_START, FETCH_CATEGORY_SUCCESS, ADD_CATEGORY_SUCCESS, FETCH_CATEGORY_BY_ID_SUCCESS, FETCH_CATEGORY_BY_ID_START, FETCH_CATEGORY_BY_ID_END, EDITING_CATEGORY_SUCCESS} from "./actionTypes"
 import {alertMessage} from './alertMessage'
 
 export function fetchCategory(){
@@ -43,37 +43,9 @@ export function fetchCategoryStart(){
     }
 }
 
-export function fetchCategorySuccess(сategories){
+export function fetchCategorySuccess(categories){
     return{
-        type: FETCH_CATEGORY_SUCCESS, сategories
-    }
-}
-
-export function addCategory(data){
-    return async dispatch => { 
-        try{
-            await fetch('/api/category', {
-                method: 'POST',
-                headers: {
-                            'Accept': 'application/json'
-                        },
-                body: data
-              })
-                .then(response => {
-                    return response.json()
-                })
-                .then(data=>{
-                    dispatch(addCategorySuccess(data))
-                })
-        }catch(e){
-                dispatch(alertMessage('danger',e,true))
-        }
-    }
-}
-
-export function addCategorySuccess(data){
-    return{
-        type: ADD_CATEGORY_SUCCESS
+        type: FETCH_CATEGORY_SUCCESS, categories
     }
 }
 
@@ -106,6 +78,7 @@ export function fetchCategoryById(id){
     }
 }
 
+
 export function fetchCategoryByIdStart(){
    return{
         type: FETCH_CATEGORY_BY_ID_START
@@ -122,4 +95,65 @@ export function fetchCategoryByIdEnd(){
     return{
         type: FETCH_CATEGORY_BY_ID_END
     }
+}
+
+export function addCategory(data){
+    return async dispatch => { 
+        try{
+            await fetch('/api/category', {
+                method: 'POST',
+                headers: {
+                            'Accept': 'application/json'
+                        },
+                body: data
+              })
+                .then(response => {
+                    return response.json()
+                })
+                .then(data=>{
+                    const category = data
+                    dispatch(addCategorySuccess(category))
+                })
+        }catch(e){
+                dispatch(alertMessage('danger',e,true))
+        }
+    }
+}
+
+export function addCategorySuccess(category){
+    return{
+        type: ADD_CATEGORY_SUCCESS, category
+    }
+}
+
+
+export function editingCategory(categoryId,data){
+    return async dispatch => {
+        try{
+            await fetch(`/api/category/${categoryId}`, {
+                method: 'PATCH',
+                headers: {
+                            'Accept': 'application/json'
+                        },
+                body: data
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then(data=>{
+                    const category = data
+                    dispatch(editingCategorySuccess(categoryId, category))
+                }).catch(e=>{
+                    dispatch(alertMessage('danger',e,true))
+                })
+        }catch(e){
+                dispatch(alertMessage('danger',e,true))
+        }
+    }
+}
+
+export function editingCategorySuccess(categoryId, category){
+  return{
+        type: EDITING_CATEGORY_SUCCESS, categoryId, category
+  }
 }

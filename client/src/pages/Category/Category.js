@@ -12,7 +12,7 @@ import {fetchCategory} from '../../store/actions/category'
 
 class Category extends Component {
     renderCategoriesList(){
-        const categories = this.props.сategories
+        const categories = this.props.categories
         if(categories.length>0){
             return (
                 <ul className="Category-list">
@@ -33,6 +33,7 @@ class Category extends Component {
     componentDidMount(){
         this.props.fetchCategory()
     }
+
 
     render(){
         const {location, match} = this.props
@@ -64,7 +65,7 @@ class Category extends Component {
 
 function mapStateToProps(state){
     return{
-        сategories: state.category.сategories,
+        categories: state.category.categories,
         alertMessage: state.alertMessage.alertMessage,
         loading: state.category.loading
     }
