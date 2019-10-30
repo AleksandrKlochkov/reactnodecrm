@@ -116,9 +116,6 @@ class Registration extends Component {
 
         if(isFormValid){
            this.props.registration(formControls.email.value, formControls.password.value)
-           this.setState({
-                formControls
-           })
         }else{
             this.setState({
                 formControls, isFormValid

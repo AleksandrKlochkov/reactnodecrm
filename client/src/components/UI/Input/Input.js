@@ -24,6 +24,7 @@ const Input = props => {
                     type={inputType}
                     name={props.name}
                     autoComplete={inputType}
+                    value={props.value}
                     placeholder={inputPlaceholder}
                     onChange={props.onChange}
                 />   

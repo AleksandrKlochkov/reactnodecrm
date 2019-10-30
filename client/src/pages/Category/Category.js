@@ -52,9 +52,9 @@ class Category extends Component {
                    {this.props.alertMessage.show ? <Alert type={this.props.alertMessage.type} message={this.props.alertMessage.message}/> : null}
                    <Switch>
                         <Route exact path={'/category'}>
-                            {this.props.loading ? <Loading /> : this.renderCategoriesList()}
+                            {this.props.loading ? <Loading /> :this.renderCategoriesList()}
                         </Route>
-                        <Route path={'/category/editing/:id?'} component={CategoryEditing} />
+                        <Route path={'/category/editing/:id?'} component={CategoryEditing}/>
                     </Switch>
                 </div>
             </div>

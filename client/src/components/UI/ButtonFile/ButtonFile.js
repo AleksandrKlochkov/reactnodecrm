@@ -11,10 +11,12 @@ const ButtonFile = props => {
             elem.querySelector('input').click()
         }
 
+        const buttonText = props.buttonText ? props.buttonText : 'Загрузить изображение'
+
         return(
             <div onClick={(event)=>triggerClick(event)} className="ButtonFile">
                 <input onChange={props.onChangeHandler} type="file" hidden/>
-                <Button className="orange"><i className="material-icons left">backup</i> Загрузить изображение</Button>
+                <Button className="orange"><i className="material-icons left">backup</i>{buttonText}</Button>
             </div>
         )
 }
